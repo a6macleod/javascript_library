@@ -8,11 +8,36 @@
 <body>
 	<h1>My Library</h1>
 
-	<h2 class="read-books">Books I've read</h2>
+	<ul id="book-list" class="read-books">
+		
+	</ul>
 
-	<h2 class="not-read-books">Books I want to read</h2>
+	<h2>Add a book!</h2>
+	<form id="new-book">
+		<label for="title">Title:</label>
+		<input id="title" type="text" name="new_title">
+		<br>
+		<label for="Author">Author:</label>
+		<input id="author" type="text" name="new_author">
+		<br>
+		<label for="pages">Pages:</label>
+		<input id="pages" type="text" name="new_pages">
+		<br>
+		<label for="read">Have read?</label>
+		<input type="checkbox" name="yes_read" class="have_read" value="">
+		<br>
+		
+		<button type="submit" id="submit-new">Submit New Book</button>
+	</form>
 
-	<button class="add-book">Add a book</button>
+<!-- MDN TEST FORM --> 
+	<form id="form">
+	  <label>Test field: <input type="text"></label>
+	  <br><br>
+	  <button type="submit">Submit form</button>
+	</form>
+	<p id="log"></p>
+<!-- -->
 </body>
 <script type="text/javascript" src="script.js"></script>
 </html>

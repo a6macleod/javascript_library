@@ -1,3 +1,7 @@
 p {
 	color: blue;
 }
+
+#book_title {
+	text-decoration: underline;
+}
