@@ -12,32 +12,30 @@
 		
 	</ul>
 
-	<h2>Add a book!</h2>
-	<form id="new-book">
-		<label for="title">Title:</label>
-		<input id="title" type="text" name="new_title">
+	<button type="button" id="add-book" class="form ">Add a new book!</button>
+
+	
+	<form id="new-book" class="form hide-form">
+		<h2 class="form hide-form">Add a book!</h2>
+		<label for="title" class="form hide-form">Title:</label>
+		<input id="title" class="form hide-form" type="text" name="new_title">
 		<br>
-		<label for="Author">Author:</label>
-		<input id="author" type="text" name="new_author">
+		<label for="Author" class="form hide-form">Author:</label>
+		<input id="author" class="form hide-form" type="text" name="new_author">
 		<br>
-		<label for="pages">Pages:</label>
-		<input id="pages" type="text" name="new_pages">
+		<label for="pages" class="form hide-form">Pages:</label>
+		<input id="pages" class="form hide-form" type="text" name="new_pages">
 		<br>
-		<label for="read">Have read?</label>
-		<input type="checkbox" name="yes_read" class="have_read" value="">
+		<label for="read" class="form hide-form">Read it already</label>
+		<input type="checkbox" name="yes_read" class="have_read form  hide-form" value="">
 		<br>
 		
-		<button type="submit" id="submit-new">Submit New Book</button>
+		<button type="submit" id="submit-new" class="form hide-form">Add this book!</button>
+		<button type="reset" id="reset" class="form hide-form">Reset form</button>
+		<button type="reset" id="cancel" class="form hide-form">Cancel</button>
 	</form>
 
-<!-- MDN TEST FORM --> 
-	<form id="form">
-	  <label>Test field: <input type="text"></label>
-	  <br><br>
-	  <button type="submit">Submit form</button>
-	</form>
-	<p id="log"></p>
-<!-- -->
+
 </body>
 <script type="text/javascript" src="script.js"></script>
 </html>

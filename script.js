@@ -1,15 +1,18 @@
-let myLibrary = [];
+const myLibrary = [];
+let myLibraryIndex = 0;
 
 // Get Elements
-const addABookButton = document.querySelector('#new-book');
-const readBooks = document.querySelector('read-books');
-const notReadBooks = document.querySelector('not-read-books');
+const submitABook = document.querySelector('#new-book');
+const addABookButton = document.querySelector('#add-book');
+const cancelNewBook = document.querySelector('#cancel');
 
-//const newTitleField = document.getElementById('#title');
-//const newAuthorField = document.getElementById('#author');
-//const newPagesField = document.getElementById('#pages');
-//let newHaveReadRadio = document.getElementById('');
 
+////////////////////////////
+const formTitle = document.querySelector('#title');
+const formAuthor = document.querySelector('#author');
+const formPages = document.querySelector('#pages');
+const formCheckbox = document.querySelector('.have_read');
+////////////////////////////
 
 // constructor
 function Book (title, author, pages, read=false) {
@@ -18,13 +21,14 @@ function Book (title, author, pages, read=false) {
 	this.author = author;
 	this.pages = pages;
 	this.read = read;
+	this.index = myLibraryIndex;
 	
 	this.info = function () {
 	  	  
 	  return(`<span id="book_title"><strong>${title}</strong></span> was written by ${author} and is ${pages} pages long. I ${read == true ? "have" : "have not"} read this book.`);
 	
 	}
-	
+	myLibraryIndex += 1;
 	pushToLibrary(this);
 
 }
@@ -32,27 +36,28 @@ function Book (title, author, pages, read=false) {
 function addBookToLibrary(event) {
 	event.preventDefault();
 
-	let newTitle = document.querySelector('#title').value;
-	let newAuthor = document.querySelector('#author').value;
-	let newPages = document.querySelector('#pages').value;
+	let newTitle = formTitle.value;
+	let newAuthor = formAuthor.value;
+	let newPages = formPages.value;
 	
-	let checkbox = document.querySelector('.have_read');
-	let newHaveRead = checkbox.checked ? true : false;
+	let newHaveRead = formCheckbox.checked ? true : false;
 
 	if (validateInput(newTitle, newAuthor, newPages)) {
 		let book = new Book(newTitle, newAuthor, newPages, newHaveRead);
 		myLibrary.push(book);
-		console.log(myLibrary);
 
 	} else {
 		return alert("Missing information on the form!");
 	}
-	
 	clearForm();
+	toggleForm();
 }
 
 function clearForm() {
-	document.querySelector('#new-book').reset();
+	formTitle.value = '';
+	formAuthor.value = '';
+	formPages.value = null;
+	formCheckbox.checked =false;
 }
 
 function validateInput(newTitle, newAuthor, newPages) {
@@ -66,17 +71,57 @@ function pushToLibrary(book) {
 	render(book);
 }
 
+function haveReadBook (addBook) {
+	if (addBook.read == true) {
+		return `<input type="checkbox" class="read" checked>`;
+	} else {
+		return `<input type="checkbox" class="read">`;
+	}
+}
+function findBookMyLibrary (dataIndex) {
+	for (obj in myLibrary) {
+		book = myLibrary.find(i => i.index == dataIndex);
+	}
+	return book;
+}
+
+function removeBook (dataIndex) {
+	const listToBeDeleted = document.querySelector(`li[data-index="${dataIndex}"]`);
+	const buttonToBeDeleted = document.querySelector(`.delete-button[data-index="${dataIndex}`);
+	const bookToBeDeleted = findBookMyLibrary(dataIndex);
+
+	listToBeDeleted.remove();
+	buttonToBeDeleted.remove();
+	myLibrary.slice(bookToBeDeleted, 1);
+}
+
+function deleteButton(addBook) {
+	return `<button type="button" class="delete-button" data-index=${addBook.index} onclick=removeBook(${addBook.index})>Remove this book</button>`;
+}
+
 function render(addBook) {
-		let bookLi = document.createElement('li');
-		let listSpot = document.querySelector('#book-list');
+		const bookLi = document.createElement('li');
+		const listSpot = document.querySelector('#book-list');
+		const checkIfRead = haveReadBook(addBook);
+		const removeBookButton = deleteButton(addBook);
+
 		listSpot.appendChild(bookLi);
-		bookLi.innerHTML = addBook.info();
+		bookLi.innerHTML = `<strong>${addBook.title}</strong> - Author: ${addBook.author} - Length: ${addBook.pages} pages - <span id="yes-read">Read?: ${checkIfRead}</span> -- ${removeBookButton}`
+		bookLi.setAttribute('data-index', `${addBook.index}`);
+}
+
+function toggleForm() {
+	const hiddenForm = document.querySelectorAll('.form');
+	hiddenForm.forEach(function (element) {
+		element.classList.toggle('hide-form');
+	});
 }
 
 
-
 // Add event listeners.
-addABookButton.addEventListener('submit', addBookToLibrary);
+submitABook.addEventListener('submit', addBookToLibrary);
+addABookButton.addEventListener('click', toggleForm);
+cancelNewBook.addEventListener('click', toggleForm);
 
 
 

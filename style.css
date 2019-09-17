@@ -5,3 +5,8 @@ p {
 #book_title {
 	text-decoration: underline;
 }
+
+.hide-form {
+	display: none;
+}
+
