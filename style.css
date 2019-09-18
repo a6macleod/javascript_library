@@ -1,9 +1,5 @@
-p {
-	color: blue;
-}
-
-#book_title {
-	text-decoration: underline;
+body {
+	background-color: #f2f2f2;
 }
 
 .hide-form, .hide {
@@ -11,6 +7,124 @@ p {
 }
 
 .yes-read {
-	color: red;
+	color: #999999;
+	font-size: 80%;
 }
+
+h1 {
+	color: #807D67;
+	text-align: center;
+	margin: 0;
+	padding: 0.25em 0;
+	font-size: 4em;
+}
+
+p {
+	color: #1D1905;
+}
+
+#book-list {
+	text-align: center;
+	padding: 0em;
+}
+
+li {
+	padding: 0.2em;
+	list-style-type: none;
+	/*border: 1px solid black;*/
+}
+
+.book-title {
+	font-weight: bold;
+	font-size: 145%;
+}
+
+.delete-button, .not-read {
+	color: #cccccc;
+	background-color: #807D67;
+	border-radius: 20px;
+	padding: 5px;
+	border: 1px solid black;
+}
+.delete-button:hover, .not-read:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+.delete-button:hover {
+	color: #302407;
+}
+
+.not-read:hover {
+	color: #f2f2f2;
+}
+
+.add-book-button{
+	text-align: center;
+}
+
+#add-book {
+	color:#807D67;
+	font-weight: bold;
+	font-size: 125%;
+	background-color: #e6e6e6;
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 5em;
+	border:1px solid #666666;
+}
+
+#add-book:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px;
+}
+
+form {
+	text-align: center;
+	margin-bottom: 5em;
+}
+
+.form {
+	color: #807D67;
+}
+h2 {
+	font-size: 2em;
+}
+label {
+	font-size: 1.5em;
+}
+
+.form-input {
+	font-size: 1em;
+}
+
+.form-clickable{
+	margin: 1em 0.5em;
+
+}
+.form-clickable:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+	box-shadow: 0 5px 10px;
+}
+
+.form-button {
+	color: #cccccc;
+	background-color: #807D67;
+	border-radius: 20px;
+	padding: 8px;
+	font-size: 1em;
+}
+
+.form-button:hover {
+	box-shadow: 0 10px 8px;
+}
+
+#check-box {
+	margin: 1em 0.5em;
+	font-size: 1em;
+	
+}
+
 

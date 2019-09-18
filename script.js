@@ -58,11 +58,14 @@ function clearForm() {
 	formCheckbox.checked = false;
 }
 
+///////////////// Work on newPages validation to stop Null and string submittals
 function validateInput(newTitle, newAuthor, newPages) {
-	if (newTitle != '' && newAuthor != '' && newPages != 0) {
+	if (newTitle != '' && newAuthor != '' && newPages != isNaN && newPages != null) {
+		console.log(newPages);
 		return true
 	}
 }
+/////////////////////////////////////////////////////////////////
 
 function pushToLibrary(book) {
 	myLibrary.push(book);
@@ -73,7 +76,7 @@ function haveReadBook (addBook) {
 	if (addBook.read == true) {
 		return `<span class="yes-read" data-index="${addBook.index}">Read</span>`;
 	} else {
-		return `<span data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=yesReadBook(${addBook.index})>Read this book?</button></span>`;
+		return `<span data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=yesReadBook(${addBook.index})>Read it?</button></span>`;
 	}
 }
 
@@ -127,7 +130,7 @@ function render(addBook) {
 
 		listSpot.appendChild(bookLi);
 		bookLi.setAttribute('data-index', `${addBook.index}`);
-		bookLi.innerHTML = `${checkIfRead} - <strong>${addBook.title}</strong> - Author: ${addBook.author} - Length: ${addBook.pages} pages -- ${removeBookButton}`
+		bookLi.innerHTML = `<p>${checkIfRead} <span class="book-title">${addBook.title}</span> - Author: ${addBook.author} - Length: ${addBook.pages} pages -- ${removeBookButton}</p>`
 }
 
 function toggleForm() {
@@ -151,5 +154,3 @@ const hobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 310, false);
 const fellowship = new Book ('The Fellowship of the Ring', 'J.R.R. Tolkien', 423, true);
 const twinTower = new Book ('The Twin Towers', 'J.R.R. Tolkien', 352, false);
 const returnOfKing = new Book ('Return of the king', 'J.R.R. Tolkien', 416, true);
-
-//render(myLibrary);

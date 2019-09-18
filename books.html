@@ -6,33 +6,41 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<h1>My Library</h1>
+	<h1>Awesome Library</h1>
 
 	<ul id="book-list" class="read-books">
 		
 	</ul>
-
-	<button type="button" id="add-book" class="form ">Add a new book!</button>
-
+	<div class="add-book-button">
+		<button type="button" id="add-book" class="form ">Add a new book!</button>
+	</div>
 	
 	<form id="new-book" class="form hide-form">
 		<h2 class="form hide-form">Add a book!</h2>
-		<label for="title" class="form hide-form">Title:</label>
-		<input id="title" class="form hide-form" type="text" name="new_title">
+		<div class="form-group">
+			<label for="title" class="form hide-form">Title:</label>
+			<input id="title" class="form hide-form form-input" type="text" name="new_title">
+		</div>
 		<br>
-		<label for="Author" class="form hide-form">Author:</label>
-		<input id="author" class="form hide-form" type="text" name="new_author">
+		<div class="form-group">
+			<label for="Author" class="form hide-form">Author:</label>
+			<input id="author" class="form hide-form form-input" type="text" name="new_author">
+		</div>
 		<br>
-		<label for="pages" class="form hide-form">Pages:</label>
-		<input id="pages" class="form hide-form" type="text" name="new_pages">
+		<div class="form-group">
+			<label for="pages" class="form hide-form">Pages:</label>
+			<input id="pages" class="form hide-form form-input" type="text" name="new_pages">
+		</div>
 		<br>
-		<label for="read" class="form hide-form">Read it already</label>
-		<input type="checkbox" name="yes_read" class="have_read form  hide-form" value="">
+		<div class="form-group">
+			<label for="read" class="form hide-form">Read it already?</label>
+			<input type="checkbox" name="yes_read" id="check-box" class="have_read form  hide-form form-clickable" value="">
+		</div>
 		<br>
 		
-		<button type="submit" id="submit-new" class="form hide-form">Add this book!</button>
-		<button type="reset" id="reset" class="form hide-form">Reset form</button>
-		<button type="reset" id="cancel" class="form hide-form">Cancel</button>
+		<button type="submit" id="submit-new" class="form hide-form form-clickable form-button">Add this book!</button>
+		<button type="reset" id="reset" class="form hide-form form-clickable form-button">Reset form</button>
+		<button type="reset" id="cancel" class="form hide-form form-clickable form-button">Cancel</button>
 	</form>
 
 
