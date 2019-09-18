@@ -1,18 +1,16 @@
 const myLibrary = [];
 let myLibraryIndex = 0;
 
-// Get Elements
+// Get elements
 const submitABook = document.querySelector('#new-book');
 const addABookButton = document.querySelector('#add-book');
 const cancelNewBook = document.querySelector('#cancel');
-
-
-////////////////////////////
+// form elements
 const formTitle = document.querySelector('#title');
 const formAuthor = document.querySelector('#author');
 const formPages = document.querySelector('#pages');
 const formCheckbox = document.querySelector('.have_read');
-////////////////////////////
+
 
 // constructor
 function Book (title, author, pages, read=false) {
@@ -57,7 +55,7 @@ function clearForm() {
 	formTitle.value = '';
 	formAuthor.value = '';
 	formPages.value = null;
-	formCheckbox.checked =false;
+	formCheckbox.checked = false;
 }
 
 function validateInput(newTitle, newAuthor, newPages) {
@@ -73,11 +71,29 @@ function pushToLibrary(book) {
 
 function haveReadBook (addBook) {
 	if (addBook.read == true) {
-		return `<input type="checkbox" class="read" checked>`;
+		return `<span class="yes-read" data-index="${addBook.index}">Read</span>`;
 	} else {
-		return `<input type="checkbox" class="read">`;
+		return `<span data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=yesReadBook(${addBook.index})>Read this book?</button></span>`;
 	}
 }
+
+function yesReadBook(dataIndex) {
+	// update book object
+	let book = findBookMyLibrary(dataIndex);
+	book.read = true;
+
+	// find the button
+	let readButton = document.querySelector(`button[data-index="${dataIndex}"]`);
+	
+	// remove the button
+	readButton.remove();
+
+	// insert the "read" and span => haveReadBook()
+	let insertRead = document.querySelector(`span[data-index="${dataIndex}"]`);
+	insertRead.classList.add("yes-read")
+	insertRead.innerHTML = "Read"
+}
+
 function findBookMyLibrary (dataIndex) {
 	for (obj in myLibrary) {
 		book = myLibrary.find(i => i.index == dataIndex);
@@ -85,9 +101,13 @@ function findBookMyLibrary (dataIndex) {
 	return book;
 }
 
+function selectList (dataIndex) {
+	return document.querySelector(`li[data-index="${dataIndex}"]`);
+}
+
 function removeBook (dataIndex) {
-	const listToBeDeleted = document.querySelector(`li[data-index="${dataIndex}"]`);
-	const buttonToBeDeleted = document.querySelector(`.delete-button[data-index="${dataIndex}`);
+	const listToBeDeleted = selectList(dataIndex);
+	const buttonToBeDeleted = document.querySelector(`.delete-button[data-index="${dataIndex}"`);
 	const bookToBeDeleted = findBookMyLibrary(dataIndex);
 
 	listToBeDeleted.remove();
@@ -96,7 +116,7 @@ function removeBook (dataIndex) {
 }
 
 function deleteButton(addBook) {
-	return `<button type="button" class="delete-button" data-index=${addBook.index} onclick=removeBook(${addBook.index})>Remove this book</button>`;
+	return `<button type="button" class="delete-button" data-index=${addBook.index} onclick=removeBook(${addBook.index})>Remove</button>`;
 }
 
 function render(addBook) {
@@ -106,8 +126,8 @@ function render(addBook) {
 		const removeBookButton = deleteButton(addBook);
 
 		listSpot.appendChild(bookLi);
-		bookLi.innerHTML = `<strong>${addBook.title}</strong> - Author: ${addBook.author} - Length: ${addBook.pages} pages - <span id="yes-read">Read?: ${checkIfRead}</span> -- ${removeBookButton}`
 		bookLi.setAttribute('data-index', `${addBook.index}`);
+		bookLi.innerHTML = `${checkIfRead} - <strong>${addBook.title}</strong> - Author: ${addBook.author} - Length: ${addBook.pages} pages -- ${removeBookButton}`
 }
 
 function toggleForm() {
@@ -122,13 +142,14 @@ function toggleForm() {
 submitABook.addEventListener('submit', addBookToLibrary);
 addABookButton.addEventListener('click', toggleForm);
 cancelNewBook.addEventListener('click', toggleForm);
+formCheckbox.addEventListener('click', yesReadBook);
 
 
 
 // example books to start with
-const hobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 310, true);
+const hobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 310, false);
 const fellowship = new Book ('The Fellowship of the Ring', 'J.R.R. Tolkien', 423, true);
-const twinTower = new Book ('The Twin Towers', 'J.R.R. Tolkien', 352, true);
+const twinTower = new Book ('The Twin Towers', 'J.R.R. Tolkien', 352, false);
 const returnOfKing = new Book ('Return of the king', 'J.R.R. Tolkien', 416, true);
 
 //render(myLibrary);

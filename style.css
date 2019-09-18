@@ -6,7 +6,11 @@ p {
 	text-decoration: underline;
 }
 
-.hide-form {
+.hide-form, .hide {
 	display: none;
+}
+
+.yes-read {
+	color: red;
 }
 
