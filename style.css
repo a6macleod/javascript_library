@@ -1,67 +1,53 @@
-body {
-	background-color: #f2f2f2;
-}
+body { background-color: #f2f2f2; }
 
-.hide-form, .hide {
-	display: none;
-}
+.hide-form, .hide { display: none; }
 
-.yes-read {
-	color: #999999;
-	font-size: 80%;
-}
+.yes-read { color: #999999; font-size: 80%; background-color: #cccccc; border-radius: 20px; margin: 0 1em; }
 
 h1 {
-	color: #807D67;
+	/*color: #807D67;*/
+	color: #1D1905;;
 	text-align: center;
 	margin: 0;
 	padding: 0.25em 0;
 	font-size: 4em;
 }
 
-p {
-	color: #1D1905;
+p { color: #1D1905; margin-left: 2em; }
+
+.list {
+	margin: 1em;
+	background-color: #cccccc;
 }
 
-#book-list {
-	text-align: center;
-	padding: 0em;
-}
+#book-list { text-align: left; padding: 0em; }
 
 li {
 	padding: 0.2em;
 	list-style-type: none;
-	/*border: 1px solid black;*/
+
+
+	border: 1px solid #808080;
 }
 
-.book-title {
-	font-weight: bold;
-	font-size: 145%;
-}
-
+.book-title { font-weight: bold; font-size: 145%; }
 .delete-button, .not-read {
 	color: #cccccc;
-	background-color: #807D67;
+	background-color: #999999;
 	border-radius: 20px;
 	padding: 5px;
-	border: 1px solid black;
+	border: 1px solid #808080;
+	size: 80%;
+	margin: 0 1em;
 }
 .delete-button:hover, .not-read:hover {
 	cursor: pointer;
 	transform: scale(1.1);
-}
-
-.delete-button:hover {
-	color: #302407;
-}
-
-.not-read:hover {
 	color: #f2f2f2;
+	box-shadow: 0 2px 8px #1D1905;
 }
 
-.add-book-button{
-	text-align: center;
-}
+.add-book-button { text-align: center; }
 
 #add-book {
 	color:#807D67;
@@ -80,29 +66,18 @@ li {
 	box-shadow: 0 5px 10px;
 }
 
-form {
-	text-align: center;
-	margin-bottom: 5em;
-}
+form { text-align: center; margin-bottom: 5em; }
 
-.form {
-	color: #807D67;
-}
-h2 {
-	font-size: 2em;
-}
-label {
-	font-size: 1.5em;
-}
+.form { color: #807D67; }
 
-.form-input {
-	font-size: 1em;
-}
+h2 { font-size: 2em; }
 
-.form-clickable{
-	margin: 1em 0.5em;
+label { font-size: 1.5em; }
 
-}
+.form-input { font-size: 1em; }
+
+.form-clickable{ margin: 1em 0.5em; }
+
 .form-clickable:hover {
 	cursor: pointer;
 	transform: scale(1.1);
@@ -116,15 +91,16 @@ label {
 	padding: 8px;
 	font-size: 1em;
 }
+.form-button:hover { box-shadow: 0 10px 8px; }
 
-.form-button:hover {
-	box-shadow: 0 10px 8px;
+#check-box { margin: 1em 0.5em; font-size: 1em;	
 }
 
-#check-box {
-	margin: 1em 0.5em;
-	font-size: 1em;
-	
-}
+footer { text-align: center; }
+
+.footer { margin: 1em 0em; }
+.footer:hover { cursor: pointer; transform: scale(1.05); }
+
+
 
 

@@ -1,4 +1,11 @@
-const myLibrary = [];
+/* to do....
+  1) Update layout to a table rather than a list
+  3) add local storage
+  
+*/
+
+
+const myLibrary = JSON.parse(localStorage.getItem('books')) || [];
 let myLibraryIndex = 0;
 
 // Get elements
@@ -10,7 +17,6 @@ const formTitle = document.querySelector('#title');
 const formAuthor = document.querySelector('#author');
 const formPages = document.querySelector('#pages');
 const formCheckbox = document.querySelector('.have_read');
-
 
 // constructor
 function Book (title, author, pages, read=false) {
@@ -28,7 +34,6 @@ function Book (title, author, pages, read=false) {
 	}
 	myLibraryIndex += 1;
 	pushToLibrary(this);
-
 }
 
 function addBookToLibrary(event) {
@@ -70,31 +75,27 @@ function validateInput(newTitle, newAuthor, newPages) {
 function pushToLibrary(book) {
 	myLibrary.push(book);
 	render(book);
+	localStorage.setItem('book', JSON.stringify(book));
 }
 
-function haveReadBook (addBook) {
+function renderReadButtons (addBook) {
 	if (addBook.read == true) {
-		return `<span class="yes-read" data-index="${addBook.index}">Read</span>`;
+		
+		return `<span class="read-button" data-index="${addBook.index}"><button type="button" class="yes-read" data-index=${addBook.index} onclick=changeReadBook(${addBook.index})>Read</button></span>`;
 	} else {
-		return `<span data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=yesReadBook(${addBook.index})>Read it?</button></span>`;
+		
+		return `<span class="read-button" data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=changeReadBook(${addBook.index})>Read it?</button></span>`;
 	}
 }
 
-function yesReadBook(dataIndex) {
-	// update book object
+function changeReadBook (dataIndex) {
 	let book = findBookMyLibrary(dataIndex);
-	book.read = true;
-
-	// find the button
-	let readButton = document.querySelector(`button[data-index="${dataIndex}"]`);
 	
-	// remove the button
-	readButton.remove();
-
-	// insert the "read" and span => haveReadBook()
-	let insertRead = document.querySelector(`span[data-index="${dataIndex}"]`);
-	insertRead.classList.add("yes-read")
-	insertRead.innerHTML = "Read"
+	book.read == true ? book.read = false : book.read = true;		
+		
+	let readButton = document.querySelector(`.read-button[data-index="${dataIndex}"]`);
+		
+	readButton.innerHTML = renderReadButtons(book);
 }
 
 function findBookMyLibrary (dataIndex) {
@@ -125,12 +126,12 @@ function deleteButton(addBook) {
 function render(addBook) {
 		const bookLi = document.createElement('li');
 		const listSpot = document.querySelector('#book-list');
-		const checkIfRead = haveReadBook(addBook);
+		const checkIfRead = renderReadButtons(addBook);
 		const removeBookButton = deleteButton(addBook);
 
 		listSpot.appendChild(bookLi);
 		bookLi.setAttribute('data-index', `${addBook.index}`);
-		bookLi.innerHTML = `<p>${checkIfRead} <span class="book-title">${addBook.title}</span> - Author: ${addBook.author} - Length: ${addBook.pages} pages -- ${removeBookButton}</p>`
+		bookLi.innerHTML = `<p>${checkIfRead} <span class="book-title">${addBook.title}</span> - Author: ${addBook.author} - Length: ${addBook.pages} pages ${removeBookButton}</p>`
 }
 
 function toggleForm() {
@@ -145,7 +146,7 @@ function toggleForm() {
 submitABook.addEventListener('submit', addBookToLibrary);
 addABookButton.addEventListener('click', toggleForm);
 cancelNewBook.addEventListener('click', toggleForm);
-formCheckbox.addEventListener('click', yesReadBook);
+formCheckbox.addEventListener('click', changeReadBook);
 
 
 
