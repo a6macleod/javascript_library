@@ -1,12 +1,5 @@
-/* to do....
- 	1) Create a feature branch for working on local storage
- 	2) remove all local storage from master and push to TOP
- 	3) local storage bugs: not saving "read" or "removed book"
- 	4) indexes are saving wrong and can sometimes work the wrong buttons
-	5) pages data validation
-*/
 
-const myLibrary = JSON.parse(localStorage.getItem('library')) || [];
+const myLibrary = [];
 let myLibraryIndex = 0;
 
 // Get elements
@@ -25,12 +18,11 @@ function Book (title, author, pages, read=false) {
 	this.index = myLibraryIndex;
 	
 	this.info = function () {
-	  	  
 	  return(`<span id="book_title"><strong>${title}</strong></span> was written by ${author} and is ${pages} pages long. I ${read == true ? "have" : "have not"} read this book.`);
-	
 	}
+	myLibrary.push(this);
+	render(this);
 	myLibraryIndex += 1;
-	//pushToLibrary(this);
 }
 
 function addBookToLibrary(event) {
@@ -38,18 +30,14 @@ function addBookToLibrary(event) {
 
 	const newTitle = this.querySelector('[name=new_title').value;
 	const newAuthor = this.querySelector('[name=new_author').value;
-	const newPages = this.querySelector('[name=new_pages').value;
-	const newHaveRead = this.querySelector('[name=yes_read]').checked ? true : false;
+	const newPages = parseInt(this.querySelector('[name=new_pages').value);
+	const newHaveRead = this.querySelector('[name=checkbox]').checked ? true : false;
 
-	if (validateInput(newTitle, newAuthor, newPages)) {
-		let book = new Book(newTitle, newAuthor, newPages, newHaveRead);
-		pushToLibrary(book);
-
-	} else {
-		return alert("Missing information on the form!");
-	}
-	clearForm();
-	toggleForm();
+	if (validateInput(newTitle, newAuthor) && validatePages(newPages)) {
+		const book = new Book(newTitle, newAuthor, newPages, newHaveRead);
+		clearForm();
+		toggleForm();
+	} 
 }
 
 function clearForm() {
@@ -59,24 +47,18 @@ function clearForm() {
 	document.querySelector('.have_read').checked = false;
 }
 
-///////////////// Work on newPages validation to stop Null and string submittals
-function validateInput(newTitle, newAuthor, newPages) {
-	if (newTitle != '' && newAuthor != '' && newPages != isNaN && newPages != null) {
-		return true
-	}
+function validateInput(newTitle, newAuthor) {
+	return (newTitle != '' && newAuthor != '' ? true : alert("Missing information on the form!"))
 }
-/////////////////////////////////////////////////////////////////
-
-function pushToLibrary(book) {
-	myLibrary.push(book);
-	render(book);
-	localStorage.setItem('library', JSON.stringify(myLibrary));
+function validatePages(newPages) {
+	return (!isNaN(newPages) && newPages != null ? true : alert("Please enter a number for the page field."))
 }
 
 function renderReadButtons (addBook) {
 	if (addBook.read == true) {
 		
 		return `<span class="read-button" data-index="${addBook.index}"><button type="button" class="yes-read" data-index=${addBook.index} onclick=changeReadBook(${addBook.index})>Read</button></span>`;
+	
 	} else {
 		
 		return `<span class="read-button" data-index="${addBook.index}"><button type="button" class="not-read" data-index=${addBook.index} onclick=changeReadBook(${addBook.index})>Read it?</button></span>`;
@@ -86,18 +68,14 @@ function renderReadButtons (addBook) {
 function changeReadBook (dataIndex) {
 	let book = findBookMyLibrary(dataIndex);
 
-	book.read == true ? book.read = false : book.read = true;		
+	book.read = !book.read;		
 		
 	let readButton = document.querySelector(`.read-button[data-index="${dataIndex}"]`);
 	readButton.innerHTML = renderReadButtons(book);
-
-	//localStorage.setItem('library', JSON.stringify(bookRead));
 }
 
 function findBookMyLibrary (dataIndex) {
-	for (obj of myLibrary) {
-		const book = myLibrary.find(i => i.index == dataIndex);
-	}
+	const book = myLibrary.find(i => i.index == dataIndex);
 	return book;
 }
 
@@ -137,25 +115,14 @@ function toggleForm() {
 	});
 }
 
-function renderSavedData(myLibrary) {
-	for (book of myLibrary) {
-		render(book);
-		myLibraryIndex += 1;
-	}
-}
-
-
 // Add event listeners.
 submitABook.addEventListener('submit', addBookToLibrary);
 addABookButton.addEventListener('click', toggleForm);
 cancelNewBook.addEventListener('click', toggleForm);
-formCheckbox.addEventListener('click', changeReadBook);
-
-renderSavedData(myLibrary);
-//savedData;
 
 // example books to start with
-//const hobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 310, false);
-//const fellowship = new Book ('The Fellowship of the Ring', 'J.R.R. Tolkien', 423, true);
-//const twinTower = new Book ('The Twin Towers', 'J.R.R. Tolkien', 352, false);
-//const returnOfKing = new Book ('Return of the king', 'J.R.R. Tolkien', 416, true);
+const hobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 310, false);
+const fellowship = new Book ('The Fellowship of the Ring', 'J.R.R. Tolkien', 423, true);
+const twinTower = new Book ('The Twin Towers', 'J.R.R. Tolkien', 352, false);
+const returnOfKing = new Book ('Return of the king', 'J.R.R. Tolkien', 416, true);
+
