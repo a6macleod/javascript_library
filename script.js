@@ -1,6 +1,9 @@
 /* to do....
-  3) bug for mixing up the myLibraryIndex and the index for the object
-  4) pages data validation
+ 	1) Create a feature branch for working on local storage
+ 	2) remove all local storage from master and push to TOP
+ 	3) local storage bugs: not saving "read" or "removed book"
+ 	4) indexes are saving wrong and can sometimes work the wrong buttons
+	5) pages data validation
 */
 
 const myLibrary = JSON.parse(localStorage.getItem('library')) || [];
