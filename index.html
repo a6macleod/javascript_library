@@ -17,25 +17,33 @@
 	</div>
 	
 	<form id="new-book" class="form hide-form">
-		<h2 class="form hide-form">Add a book!</h2>
-		<div class="form-group">
-			<label for="title" class="form hide-form">Title:</label>
-			<input id="title" class="form hide-form form-input" type="text" name="new_title">
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="Author" class="form hide-form">Author:</label>
-			<input id="author" class="form hide-form form-input" type="text" name="new_author">
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="pages" class="form hide-form">Pages:</label>
-			<input id="pages" class="form hide-form form-input" type="text" name="new_pages">
-		</div>
-		<br>
-		<div class="form-group">
-			<label for="checkbox" class="form hide-form">Read it already?</label>
-			<input type="checkbox" name="checkbox" id="checkbox" class="have_read form  hide-form form-clickable" value="">
+		<fieldset>
+			<!-- <h2 class="form hide-form">Add a book!</h2> -->
+			<legend>Add a Book!</legend>
+			<div class="form-group">
+				<label for="title" class="form hide-form"><abbr title="This field is mandatory" aria-label="required"><sup>*</sup></abbr>Title:</label>
+				<input id="title" class="form hide-form form-input" type="text" name="new_title" required>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="Author" class="form hide-form"><abbr title="This field is mandatory" aria-label="required"><sup>*</sup></abbr>Author:</label>
+				<input id="author" class="form hide-form form-input" type="text" name="new_author" required>
+			</div>
+			<br>
+			<div class="form-group">
+				<label for="pages" class="form hide-form">Pages:</label>
+				<input id="pages" class="form hide-form form-input" type="number" name="new_pages">
+			</div>
+			<br>
+			<div class="form-group">
+				<fieldset>
+					<legend>Have you read this?</legend>
+					<label for="yes-checkbox" class="form hide-form">Yes:</label>
+					<input type="checkbox" name="checkbox" id="yes-checkbox" class="have_read form  hide-form form-clickable" value="">
+					<label for="no-checkbox" class="form hide-form">No:</label>
+					<input type="checkbox" name="checkbox" id="no-checkbox" class="have_read form  hide-form form-clickable" value="">
+				</fieldset>
+		</fieldset>
 		</div>
 		<br>
 		
